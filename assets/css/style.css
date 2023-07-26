@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.gameboyIcon {
+    width: 40px;
+}
+
+.nav-item .nav-link {
+    color: orange;
+}
+
+h1 {
+    margin: 0 auto;
+}
