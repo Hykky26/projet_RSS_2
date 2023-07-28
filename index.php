@@ -1,60 +1,93 @@
-<!DOCTYPE html>
-<html lang="fr">
+<?php session_start() ?>
+<?php require_once 'views/header.php' ?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="icon" type="image/x-icon" href="assets/img/game-console.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <title>Talk4Games</title>
-</head>
+<?php
+var_dump($_SESSION['choice']);
+?>
 
-<body>
-    <header>
-        <nav class="navbar navbar-expand-lg bg-dark color-white text-white">
-            <div class=" container-fluid">
-                <a class="navbar-brand" href="index.html"><img src="assets/img/game-console.png" alt="gameboy icon"
-                        class="gameboyIcon"></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <h1>TALK4GAMES</h1>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <main>
-        <div class="container">
-            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
-                <label class="btn btn-outline-warning" for="btncheck1">Actu PS5</label>
-            </div>
-            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="on">
-                <label class="btn btn-outline-warning" for="btncheck2">Actu PC</label>
-            </div>
-            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="on">
-                <label class="btn btn-outline-warning" for="btncheck3">Test</label>
-            </div>
-            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="on">
-                <label class="btn btn-outline-warning" for="btncheck4">Actu Arcade</label>
-            </div>
-            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                <input type="checkbox" class="btn-check" id="btncheck5" autocomplete="on">
-                <label class="btn btn-outline-warning" for="btncheck5">Astuces & Soluces</label>
-            </div>
+
+<?php
+function displayArticle($xmlString, $numArticlesToShow) {
+    
+    $xml = simplexml_load_string($xmlString);
+
+    $articles = $xml->channel->item;
+    // Afficher les articles sélectionnés
+    for ($i = 0; $i < $numArticlesToShow; $i++) {
+        $articleTitle =  $articles[$i]->title;
+        $title = $xml->channel->title;
+        $articleLink =  $articles[$i]->link;
+        $articleDescription = $articles[$i]->description;
+        $articleImageURL =  $articles[$i]->enclosure['url'];
+        ?>
+    <div class='card'>
+        <h3 class='text-warning'><?=$title?></h3>
+        <h4 class='text-warning f-1'><?=$articleTitle?></h4>
+        <p class="w-75 m-auto"><?=$articleDescription?></p>
+        <a href="<?=$articleLink?>" class='text-light'>Lien de l'article</a>
+        <img src="<?=$articleImageURL?>" alt="image de l'aticle" class='articleImg'>
+    </div>
+    
+    <?php
+}
+}
+$xmlFile1 = 'https://www.jeuxactu.com/rss/tests.rss'; // Placez le contenu XML complet dans cette variable
+$xmlFile2 = 'https://www.jeuxactu.com/rss/tips.rss';
+$xmlFile3 = 'https://www.jeuxactu.com/rss/pc.rss';
+$xmlFile4 = 'https://www.jeuxactu.com/rss/ps5.rss';
+$xmlFile5 = 'https://www.jeuxactu.com/rss/switch.rss';
+
+
+
+// Récupérer le nombre d'articles à afficher choisi par l'utilisateur
+$numArticlesToShow = isset($_SESSION['choice']) ? (int)$_SESSION['choice'] : 3;
+
+// Limiter le nombre d'articles à afficher pour être sûr qu'il est bien entre 6, 9 et 12
+$numArticlesToShow = in_array($numArticlesToShow, [6, 9, 12]) ? $numArticlesToShow : 6;
+?>
+<?php
+if (isset($_GET['rss'])) {
+    $rss_param = $_GET['rss'];
+
+    switch ($rss_param) {
+        case 'news':
+            $xmlFile = 'https://www.jeuxactu.com/rss/news.rss';
+            break;
+        case 'pcNews':
+            $xmlFile = 'https://www.jeuxactu.com/rss/pc.rss';
+            break;
+        case 'switchNews':
+            $xmlFile = 'https://www.jeuxactu.com/rss/switch.rss';
+            break;
+        case 'test':
+            $xmlFile = 'https://www.jeuxactu.com/rss/tests.rss';
+            break;
+        case 'tips':
+            $xmlFile = 'https://www.jeuxactu.com/rss/tips.rss';
+            break;
+        default:
+            $xmlFile = 'https://www.jeuxactu.com/rss/news.rss';
+            break;
+    }
+
+    // Charger le contenu XML en fonction du fichier déterminé par le paramètre "rss"
+    $xmlString = file_get_contents($xmlFile);
+
+    // Afficher les articles en utilisant la fonction displayArticle
+    ?>
+    <!-- Affichage des articles dans une colonne -->
+    <div class="gridContainer">
+        <div>
+            <?php displayArticle($xmlString, $numArticlesToShow); ?>
         </div>
-    </main>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-        crossorigin="anonymous"></script>
+    </div>
+<?php
+}
+?>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+crossorigin="anonymous"></script>
 </body>
 
 </html>

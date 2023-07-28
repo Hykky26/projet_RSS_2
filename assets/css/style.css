@@ -6,6 +6,10 @@
     box-sizing: border-box;
 }
 
+body {
+    background: #9b989870;
+}
+
 .gameboyIcon {
     width: 40px;
 }
@@ -15,5 +19,27 @@
 }
 
 h1 {
-    margin: 0 auto;
+    text-align: right;
+}
+
+.gridContainer {
+    display: flex;
+}
+
+a {
+    padding: 15px;
+}
+
+form {
+    text-align: center;
+    margin: 20px;
+}
+
+.button {
+    padding: 9px;
+    width: 120px;
+    margin: 20px;
+    background: #9b989870;
+    border: none;
+    border-radius: 25px;
 }
