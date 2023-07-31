@@ -43,3 +43,7 @@ form {
     border: none;
     border-radius: 25px;
 }
+
+#burgerMenu {
+    width: 300px;
+}

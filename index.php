@@ -1,11 +1,5 @@
 <?php session_start() ?>
-<?php require_once 'views/header.php' ?>
-
-<?php
-var_dump($_SESSION['choice']);
-?>
-
-
+<?php require_once 'header.php' ?>
 <?php
 function displayArticle($xmlString, $numArticlesToShow) {
     

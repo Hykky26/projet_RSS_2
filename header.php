@@ -10,7 +10,6 @@
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <title>Talk4Games</title>
     <style>
-
         form {
             color: #FFF;
         }
@@ -60,20 +59,24 @@
             <div class=" container-fluid">
                 <a class="navbar-brand" href="index.php"><img src="assets/img/game-console.png" alt="gameboy icon"
                         class="gameboyIcon"></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <a href="?rss=news" class="nav-item text-white">Actu Ps5</a>
-                <a href="?rss=pcNews" class="nav-item text-white">Actu Pc</a>
-                <a href="?rss=switchNews" class="nav-item text-white">Actu Switch</a>
-                <a href="?rss=test" class="nav-item text-white">test</a>
-                <a href="?rss=tips" class="nav-item text-white">Soluces et tips</a>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <h1>TALK4GAMES</h1>
+                        <h1>TALK4GAMES</h1>
+                    </div>
                 </div>
-                <a href="settings.php" target="_blank">Parametres</a>
-            </div>
+                <button 
+ class="navbar-toggler m-auto" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon bg-white" id="burgerMenu">
+                    </span>
+                    <div class="d-flex flex-column m-auto">
+                        <a href="?rss=news" class="nav-item text-white" id="navbarSupportedContent">Actu Ps5</a>
+                        <a href="?rss=pcNews" class="nav-item text-white" id="navbarSupportedContent">Actu Pc</a>
+                        <a href="?rss=switchNews" class="nav-item text-white" id="navbarSupportedContent">Actu Switch</a>
+                        <a href="?rss=test" class="nav-item text-white" id="navbarSupportedContent">test</a>
+                        <a href="?rss=tips" class="nav-item text-white" id="navbarSupportedContent">Soluces et tips</a>
+                        <a href="settings.php" target="_blank" id="navbarSupportedContent">Parametres</a>
+                        <div class="collapse navbar-collapse">
+                    </div>
+                </button>
         </nav>
     </header>
